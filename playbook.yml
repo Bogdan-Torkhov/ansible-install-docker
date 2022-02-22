@@ -52,7 +52,7 @@
     remote_user: ansible
     user:
       name: "ansible"
-      group: "docker"
+      groups: "docker"
       append: yes
     tags:
       - docker
