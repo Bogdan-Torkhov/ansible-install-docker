@@ -1,9 +1,9 @@
 - hosts: all
-  become: yes
+  become: true
   gather_facts: false
   tasks:
   - name: Install docker packages
-    remote_user: ansible
+    remote_user: ansible 
     apt:
       name: "{{ item }}"
       state: present
