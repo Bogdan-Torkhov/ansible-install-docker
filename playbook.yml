@@ -58,7 +58,7 @@
       - docker
   - name: enable a docker service 
     remote_user: ansible
-    ansible.builtin.systemd:
+    systemd:
       name: docker
       state: started
       enabled: yes
