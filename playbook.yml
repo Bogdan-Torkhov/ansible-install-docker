@@ -41,10 +41,10 @@
   - name: Install docker
     remote_user: ansible 
     apt:
-      name: "{{ item }}"
+      name: "{{ items }}"
       state: present
       update_cache: yes
-      with_item:
+      with_items:
       - docker-ce
       - docker-ce-cli
       - containerd.io
