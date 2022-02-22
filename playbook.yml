@@ -1,0 +1,70 @@
+- hosts: all
+  become: yes
+  gather_facts: false
+  tasks:
+  - name: Install docker packages
+    remote_user: ansible
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    with_items:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg 
+      - lsb-release
+    tags:
+      - docker
+  - name: Add Docker s official GPG key
+    remote_user: ubuntu
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+    tags:
+      - docker
+  - name: Set up the stable repository
+    remote_user: ansible
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+      state: present
+      update_cache: yes
+    tags:
+      - docker
+  - name: Update apt packages
+    remote_user: ansible
+    apt:
+      update_cache: yes
+    tags:
+      - docker
+  - name: Install docker
+    remote_user: ansible 
+    apt:
+      name: "{{ apps }}"
+      state: present
+      update_cache: yes
+      with_apps:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    #notify: Start docker on boot
+    tags:
+      - docker
+  - name: Add remote "ansible" user to "docker" group
+    remote_user: ansible
+    user:
+      name: "ansible"
+      group: "docker"
+      append: yes
+    tags:
+      - docker
+  - name: enable a docker service 
+    remote_user: ansible
+    ansible.builtin.systemd:
+      name: docker
+      state: started
+      enabled: yes
+      masked: no
+    tags: 
+      - docker
