@@ -2,7 +2,7 @@
   become: true
   gather_facts: false
   tasks:
-  - name: Install docker packages
+  - name: Install docker dependenses
     remote_user: ansible 
     apt:
       name: 
