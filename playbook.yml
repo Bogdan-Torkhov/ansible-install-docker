@@ -17,7 +17,7 @@
       - lsb-release
     tags:
       - docker
-  - name: Add Docker s official GPG key
+  - name: Add Docker official GPG key
     remote_user: ubuntu
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
@@ -41,10 +41,10 @@
   - name: Install docker
     remote_user: ansible 
     apt:
-      name: "{{ apps }}"
+      name: "{{ item }}"
       state: present
       update_cache: yes
-      with_apps:
+      with_item:
       - docker-ce
       - docker-ce-cli
       - containerd.io
