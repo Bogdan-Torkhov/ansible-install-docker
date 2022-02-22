@@ -5,16 +5,15 @@
   - name: Install docker packages
     remote_user: ansible 
     apt:
-      name: "{{ item }}"
-      state: present
-      update_cache: yes
-    with_items:
+      name: 
       - apt-transport-https
       - ca-certificates
       - curl
       - software-properties-common
       - gnupg 
       - lsb-release
+      state: present
+      update_cache: yes
     tags:
       - docker
   - name: Add Docker official GPG key
