@@ -48,7 +48,7 @@
       update_cache: yes
     tags:
       - docker
-  - name: Add remote "ansible" user to "docker" group
+  - name: Add user ansible to docker group
     remote_user: ansible
     user:
       name: "ansible"
