@@ -41,14 +41,12 @@
   - name: Install docker
     remote_user: ansible 
     apt:
-      name: "{{ items }}"
-      state: present
-      update_cache: yes
-      with_items:
+      name: 
       - docker-ce
       - docker-ce-cli
       - containerd.io
-    #notify: Start docker on boot
+      state: present
+      update_cache: yes
     tags:
       - docker
   - name: Add remote "ansible" user to "docker" group
